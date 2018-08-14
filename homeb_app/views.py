@@ -1,18 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
+from django.contrib.auth.decorators import login_required
 
+from .forms import PostForm
 from .models import Zakup
 
-
-def zakup_list(request, pk):
-    zakupy = akup.objects.filter(category__name="jedzenie").values('price', 'date', 'name')
-    return render(request, 'homeb/zakup_list.html', {'zakupy': zakupy})
-
+@login_required
+def zakup_list(request):
+    zakupy = Zakup.objects.filter(category__name="jedzenie").values('price', 'date', 'name')
+    return render(request, 'homeb_app/zakup_list.html', {'zakupy': zakupy})
+@login_required
 def zakup_detail(request, pk):
     zakup = get_object_or_404(Zakup, pk=pk)
-    return render(request, 'homeb/zakup_detail.html', {'zakup': zakup})
-
+    return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup})
+@login_required
 def zakup_nowy(request):
     if request.method == "POST":
         form = ZakupForm(request.POST)
@@ -23,19 +25,11 @@ def zakup_nowy(request):
             return redirect('zakup_list')
     else:
         form = ZakupForm()
-    return render(request, 'homeb/zakup_edit.html', {'form': form})
+    return render(request, 'homeb_app/zakup_edit.html', {'form': form})
 
+def login_view(request):
+    return render(request, 'registration/login.hml', {'form': login})
 
-'''class ZakupListView(ListView):
-    model = Zakup
-    context_object_name = 'zakup'
+def logout_view(request):
+    return redirect(request, '/')
 
-class ZakupCreateView(CreateView):
-    model = Zakup
-    fields = ('category', 'name', 'price', 'date')
-    success_url = reverse_lazy('zakup_list')
-
-class ZakupUpdateView(UpdateView):
-    model = Zakup
-    fields = ('category', 'name', 'price', 'date')
-    success_url = reverse_lazy('zakup_list')'''
