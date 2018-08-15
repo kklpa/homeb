@@ -1,0 +1,13 @@
+{% extends 'homeb_app/base.html' %}
+
+{% block content %}
+    <div class="post">
+        <p>kategoria: {{ zakup.category }}</p>
+        <p>nazwa: {{ zakup.name }}</p>
+        <p>cena: {{ zakup.price }}</p>
+        <p>ilosc: {{ zakup.quantity }}</p>
+        <p>suma: {{ zakup.total }}</p>
+        <p>miesiac: {{ zakup.month }}</p>
+        <p>data dodania: {{ zakup.date }}</p>
+    </div>
+{% endblock %}

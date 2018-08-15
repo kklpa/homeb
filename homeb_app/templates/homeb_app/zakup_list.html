@@ -1,0 +1,17 @@
+{% extends 'homeb_app/base.html' %}
+    {% block content %}
+        {% for zakup in zakupy %}
+        <div class="post">
+            <div class="date">
+                <p>data dodania: {{ zakup.date }}</p>
+            </div>
+            <h1><a href="{% url 'zakup_detail' pk=zakup.pk %}">{{ zakup.name }}</a></h1>
+                <p>kategoria: {{ zakup.category }}</p>
+                <p>nazwa: {{ zakup.name }}</p>
+                <p>cena: {{ zakup.price }}</p>
+                <p>ilosc: {{ zakup.quantity }}</p>
+                <p>suma: {{ zakup.total }}</p>
+                <p>miesiac: {{ zakup.date }}</p>
+            </div>
+        {% endfor %}
+    {% endblock %}    

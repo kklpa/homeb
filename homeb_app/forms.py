@@ -2,9 +2,8 @@ from django import forms
 
 from .models import Zakup
 
-class PostForm(forms.ModelForm):
+class ZakupForm(forms.ModelForm):
 
     class Meta:
         model = Zakup
-        fields = ('category', 'month', 'name', 'price')
-
+        fields = ('category', 'month', 'name', 'price', 'quantity',)
