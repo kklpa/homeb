@@ -17,7 +17,6 @@ def zakup_nowy(request):
         form = ZakupForm(request.POST)
         if form.is_valid():
             zakup = form.save(commit=False)
-            zakup.ustaw_date = datetime.date.today()
             zakup.save()
             return redirect('zakup_list')
     else:

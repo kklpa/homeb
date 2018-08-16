@@ -10,7 +10,7 @@ class Kategoria(models.Model):
 
 class Miesiac(models.Model):
     name = models.CharField(max_length=15)
-
+    
     def __str__(self):
         return self.name
 
@@ -20,15 +20,11 @@ class Zakup(models.Model):
     name = models.CharField(max_length=30)
     price = models.FloatField(default=0.1)
     quantity = models.IntegerField(default=1)
-    date = models.DateField(blank=True, null=True)
+    date = models.DateField(auto_now_add=True, blank=True)
 
     def total(self):
         amount = (self.price * self.quantity)
         return amount
-    def ustaw_date(self):
-        self.date = datetime.date.today()
-    def miesiac_stats(self):
-        return datetime.date.today().month
         
     def __str__(self):
         return self.name
