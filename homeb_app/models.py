@@ -15,8 +15,8 @@ class Miesiac(models.Model):
         return self.name
 
 class Zakup(models.Model):
-    category = models.ForeignKey(Kategoria, on_delete=models.CASCADE)
-    month = models.ForeignKey(Miesiac, on_delete=models.CASCADE, default=datetime.datetime(2015, 12, 26, 17, 1, 28, 128127, tzinfo=utc))
+    category = models.ForeignKey(Kategoria, on_delete=models.CASCADE, default=1)
+    month = models.ForeignKey(Miesiac, on_delete=models.CASCADE, default=datetime.datetime.now().month)
     name = models.CharField(max_length=30)
     price = models.FloatField(default=0.1)
     quantity = models.IntegerField(default=1)
@@ -25,6 +25,6 @@ class Zakup(models.Model):
     def total(self):
         amount = (self.price * self.quantity)
         return amount
-        
+
     def __str__(self):
         return self.name
