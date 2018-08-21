@@ -1,3 +1,4 @@
+/* https://divtable.com/table-styler/ */
 div.blueTable {
     border: 1px solid #1C6EA4;
     background-color: #EEEEEE;
@@ -61,7 +62,6 @@ div.blueTable {
   .blueTable.outerTableFooter .tableFootStyle {
     padding: 3px 5px; 
   }
-  /* DivTable.com */
   .divTable{ display: table; }
   .divTableRow { display: table-row; }
   .divTableHeading { display: table-header-group;}
@@ -69,8 +69,10 @@ div.blueTable {
   .divTableHeading { display: table-header-group;}
   .divTableFoot { display: table-footer-group;}
   .divTableBody { display: table-row-group;}
-  
-.page-header {
+
+/* origi below */
+
+  .page-header {
     background-color: #ff9400;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
