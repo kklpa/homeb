@@ -6,7 +6,7 @@ from .forms import ZakupForm
 from .models import Zakup
 
 def zakup_list(request):
-    #zakupy = Zakup.objects.filter(category__name="jedzenie").values('price', 'date', 'name')
+    '''zakupy = Zakup.objects.filter(category__name="jedzenie").values('price', 'date', 'name')'''
     zakupy = Zakup.objects.all()
     return render(request, 'homeb_app/zakup_list.html', {'zakupy': zakupy})
 def zakup_detail(request, pk):
@@ -23,9 +23,24 @@ def zakup_nowy(request):
         form = ZakupForm()
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
 
+#def zakup_month(request):
+    #miesiace = Zakup.objects.all().values('month', 'price')
+    #for month in miesiace:
+        #zakupy_month = Zakup.objects.filter(month__name=month).values('price').aggregate(Sum('price'))
+        
+
 '''def login_view(request):
     return render(request, 'registration/login.hml', {'form': login})
 
 def logout_view(request):
     return redirect(request, '/')
+'''
+
+'''
+miesiace = Zakup.objects.all().values('month', 'price')
+for month in miesiace:
+    asd = sum(month.values())
+    print(month.values())
+    print(asd)
+
 '''
