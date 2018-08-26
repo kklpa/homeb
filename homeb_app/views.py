@@ -17,6 +17,8 @@ def zakup_nowy(request):
         form = ZakupForm(request.POST)
         if form.is_valid():
             zakup = form.save(commit=False)
+            #mnozymy cena przez ilosc i zapisujemy do cena
+            zakup.total = zakup.price * zakup.quantity
             zakup.save()
             return redirect('zakup_list')
     else:
@@ -24,11 +26,17 @@ def zakup_nowy(request):
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
 
 #def zakup_month(request):
+    #Zakup.objects.filter(month__name="sierpien").values('total').aggregate(Sum('total'))
+
+
+
+
+
     #miesiace = Zakup.objects.all().values('month', 'price')
     #for month in miesiace:
         #zakupy_month = Zakup.objects.filter(month__name=month).values('price').aggregate(Sum('price'))
-        
-
+      #ZZakup.objects.filter(month__name="sierpien").values('total').aggregate(Sum('total'))
+#Zakup.objects.all().delete()
 '''def login_view(request):
     return render(request, 'registration/login.hml', {'form': login})
 
@@ -37,7 +45,7 @@ def logout_view(request):
 '''
 
 '''
-miesiace = Zakup.objects.all().values('month', 'price')
+months = Zakup.objects.all().values('month', 'price')
 for month in miesiace:
     asd = sum(month.values())
     print(month.values())
