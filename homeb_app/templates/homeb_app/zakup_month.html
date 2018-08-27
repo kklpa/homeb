@@ -1,0 +1,18 @@
+{% extends 'homeb_app/base.html' %}
+    {% block content %}
+        {% for miesiac in miesiace %}
+        <div class="post">
+            <div class="date">
+                <p>miesiac: {{ miesiac.name }}</p>
+            </div>
+            {% for kategoria in kategorie %}
+                <div class="post">
+                    <p>kategoria: {{ kategoria.name }}</p>
+                    {% for total in totals %}
+                        <p>suma: {{ total }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    {% endblock %}  
