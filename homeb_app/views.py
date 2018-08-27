@@ -25,8 +25,18 @@ def zakup_nowy(request):
         form = ZakupForm()
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
 
+'''
+kategorie = Kategoria.objects.all()
+for kategoria in kategorie:
+    m = Zakup.objects.filter(month__name="sierpien", category=kategoria).values('category__name', 'total').aggregate(Sum('total'))
+    print(kategoria, ':', m)
+
+
+'''
+
+
 #def zakup_month(request):
-    #Zakup.objects.filter(month__name="sierpien").values('total').aggregate(Sum('total'))
+    #m = Zakup.objects.filter(month__name="sierpien").values('total').aggregate(Sum('total'))
 
 
 
