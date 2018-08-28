@@ -29,19 +29,30 @@ def zakup_nowy(request):
 def zakup_month(request):
     kategorie = Kategoria.objects.all()
     miesiace = Miesiac.objects.all()
-    month_overall = [] 
     totals = []
     for miesiac in miesiace:
         m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
-        print('\npodsumowanie miesiaca: \n', miesiac, ':', m, '\n')
-        month_overall.append(m)
+        totals.append(miesiac)
         for kategoria in kategorie:
             k = (Zakup.objects.filter(month__name=miesiac, category=kategoria).values('category__name', 'total').aggregate(Sum('total')))
-            print(kategoria, ':', k)
+            totals.append(kategoria)
             totals.append(k)
-    return render(request, 'homeb_app/zakup_month.html', {'miesiace': miesiace, 'kategorie': kategorie, 'totals': totals})
+    return render(request, 'homeb_app/zakup_month.html', {'totals': totals})
 
 '''
+
+
+kategorie = Kategoria.objects.all()
+miesiace = Miesiac.objects.all()
+totals = []
+for miesiac in miesiace:
+    m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
+    totals.append(miesiac)
+    for kategoria in kategorie:
+        k = (Zakup.objects.filter(month__name=miesiac, category=kategoria).values('category__name', 'total').aggregate(Sum('total')))
+        totals.append(kategoria)
+        totals.append(k)
+
 kategorie = Kategoria.objects.all()
 miesiace = Miesiac.objects.all()
 
