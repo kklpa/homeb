@@ -53,7 +53,7 @@ for miesiac in miesiace:
     totals.append(miesiac)
     for kategoria in kategorie:
         k = (Zakup.objects.filter(month__name=miesiac, category=kategoria).values('category__name', 'total').aggregate(Sum('total')))
-        k = k.pop('total__sum', '0')
+        k = k.pop('total__sum')
         totals.append(kategoria)
         totals.append(k)
 
