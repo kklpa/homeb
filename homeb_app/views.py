@@ -15,16 +15,16 @@ def zakup_detail(request, pk):
     return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup})
 def zakup_nowy(request):
     if request.method == "POST":
-        form = ZakupForm(request.POST)
+        form = ZakupForm(request.POST,initial={'year':2030})
         if form.is_valid():
             zakup = form.save(commit=False)
-            #mnozymy cena przez ilosc i zapisujemy do cena
             zakup.total = zakup.price * zakup.quantity
-            zakup.year = 2
+            #zakup.month = datetime.datetime.now().month
+            zakup.year = datetime.datetime.now().year
             zakup.save()
             return redirect('zakup_list')
     else:
-        form = ZakupForm()
+        form = ZakupForm(initial={'year': datetime.datetime.now().year})
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
 
 #def zakup_month(request):
@@ -32,21 +32,28 @@ def zakup_nowy(request):
 
 
 def zakup_month(request):
+    sumy = []
     kategorie = Kategoria.objects.all()
     miesiace = Miesiac.objects.all()
-    totals = []
     for miesiac in miesiace:
-        m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
-        totals.append(miesiac)
         for kategoria in kategorie:
             k = (Zakup.objects.filter(month__name=miesiac, category=kategoria).values('category__name', 'total').aggregate(Sum('total')))
-            k = k.pop('total__sum', '0')
-            totals.append(kategoria)
-            totals.append(k)
-    return render(request, 'homeb_app/zakup_month.html', {'totals': totals})
+            print(k)
+            sumy.append(k)
+    return render(request, 'homeb_app/zakup_month.html', ({ 'miesiace': miesiace, 'kategorie': kategorie, 'sumy': sumy }) )
 
 '''
-
+kategorie = Kategoria.objects.all()
+miesiace = Miesiac.objects.all()
+totals = []
+for miesiac in miesiace:
+    m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
+    totals.append(miesiac)
+    for kategoria in kategorie:
+        k = (Zakup.objects.filter(month__name=miesiac, category=kategoria).values('category__name', 'total').aggregate(Sum('total')))
+        k = k.pop('total__sum', '0')
+        totals.append(kategoria)
+        totals.append(k)
 
 kategorie = Kategoria.objects.all()
 miesiace = Miesiac.objects.all()

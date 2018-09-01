@@ -5,125 +5,22 @@
         <div class="post">
                 <table>
                         <tr>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30">styczen</td>
-                            <td width="300" height="30">luty</td>
-                            <td width="300" height="30">marzec</td>
-                            <td width="300" height="30">kwiecien</td>
-                            <td width="300" height="30">maj</td>
-                            <td width="300" height="30">czerwiec</td>
-                            <td width="300" height="30">lipec</td>
-                            <td width="300" height="30">sierpien</td>
-                            <td width="300" height="30">wrzesien</td>
-                            <td width="300" height="30">pazdziernik</td>
-                            <td width="300" height="30">listopad</td>
-                            <td width="300" height="30">grudzien</td>
+                            <td width="500" height="30">kategorie</td>
+                            {% for miesiac in miesiace %}
+                                <td width="500" height="30"> {{ miesiac.name }} </td>
+                            {% endfor %}
                         </tr>
-                        <tr>
-                            <td width="300" height="30">jedzenie</td>
-                            <td width="300" height="30"> {{ totals.2 }} </td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"> {{ totals.107 }} </td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                        </tr>
-                        <tr>
-                            <td width="300" height="30">chemia</td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                        </tr>
-                        <tr>
-                            <td width="300" height="30">ubrania</td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                        </tr>
-                        <tr>
-                            <td width="300" height="30">rozrywka</td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                        </tr>
-                        <tr>
-                            <td width="300" height="30">samochod</td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30">{{ totals.113 }}</td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                        </tr>
-                        <tr>
-                            <td width="300" height="30">mieszkanie</td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                        </tr>
-                        <tr>
-                            <td width="300" height="30">inne</td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
-                            <td width="300" height="30"></td>
+                        {% for kategoria in kategorie %}
+                            <tr>
+                                <td width="500" height="30"> 
+                                    {{ kategoria.name }}
+                                    {% for suma in sumy %} 
+                                        {{ suma }}    
+                                    {% endfor %}
+                                </td>
                             </tr>
+                        {% endfor %}
+                       
                       </table>
         </div>
             
