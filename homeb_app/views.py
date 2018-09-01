@@ -20,11 +20,16 @@ def zakup_nowy(request):
             zakup = form.save(commit=False)
             #mnozymy cena przez ilosc i zapisujemy do cena
             zakup.total = zakup.price * zakup.quantity
+            zakup.year = 2
             zakup.save()
             return redirect('zakup_list')
     else:
         form = ZakupForm()
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
+
+#def zakup_month(request):
+
+
 
 def zakup_month(request):
     kategorie = Kategoria.objects.all()
