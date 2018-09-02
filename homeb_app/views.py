@@ -15,21 +15,15 @@ def zakup_detail(request, pk):
     return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup})
 def zakup_nowy(request):
     if request.method == "POST":
-        form = ZakupForm(request.POST,initial={'year':2030})
+        form = ZakupForm(request.POST)
         if form.is_valid():
             zakup = form.save(commit=False)
             zakup.total = zakup.price * zakup.quantity
-            #zakup.month = datetime.datetime.now().month
-            zakup.year = datetime.datetime.now().year
             zakup.save()
             return redirect('zakup_list')
     else:
-        form = ZakupForm(initial={'year': datetime.datetime.now().year})
+        form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
-
-#def zakup_month(request):
-
-
 
 def zakup_month(request):
     sumy = []

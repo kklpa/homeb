@@ -16,8 +16,8 @@ class Miesiac(models.Model):
 
 class Zakup(models.Model):
     category = models.ForeignKey(Kategoria, on_delete=models.CASCADE, default=1)
-    month = models.ForeignKey(Miesiac, on_delete=models.CASCADE, default=datetime.datetime.now().month)
-    year = models.IntegerField(default=2000)
+    month = models.ForeignKey(Miesiac, on_delete=models.CASCADE)
+    year = models.IntegerField()
     name = models.CharField(max_length=30)
     price = models.FloatField(default=0.1)
     quantity = models.IntegerField(default=1)
