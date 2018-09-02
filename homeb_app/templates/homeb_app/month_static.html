@@ -1,0 +1,31 @@
+{% extends 'homeb_app/base.html' %}
+    {% block content %}
+   
+        <div class="post">
+                <table>
+                        <tr>
+                            <td width="500" height="30">kategorie</td>
+                            {% for miesiac in miesiace %}
+                                <td width="500" height="30"> {{ miesiac.name }} </td>
+                            {% endfor %}
+                        </tr>
+                        {% for kategoria in kategorie %}
+                            <tr>
+                                <td width="500" height="30"> 
+                                    {{ kategoria.name }}
+                                        {{ totals.2 }}    
+                                </td>
+                                <td width="500" height="30"> {{ totals.2 }} </td>
+                                <td width="500" height="30"> {{ totals.2 }} </td>
+                                <td width="500" height="30"> {{ totals.2 }} </td>
+                                <td width="500" height="30"> {{ totals.2 }} </td>
+                                <td width="500" height="30"> {{ totals.2 }} </td>
+                                     
+
+                            </tr>
+                        {% endfor %}
+                       
+                      </table>
+        </div>
+            
+{% endblock %} 
