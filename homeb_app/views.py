@@ -49,6 +49,8 @@ for miesiac in miesiace:
         totals.append(kategoria)
         totals.append(k)
 
+15 elementor na 12 miesiecy
+
 kategorie = Kategoria.objects.all()
 miesiace = Miesiac.objects.all()
 mie = []
