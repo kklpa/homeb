@@ -10,14 +10,19 @@ def zakup_list(request):
     '''zakupy = Zakup.objects.filter(category__name="jedzenie").values('price', 'date', 'name')'''
     zakupy = Zakup.objects.all()
     return render(request, 'homeb_app/zakup_list.html', {'zakupy': zakupy})
-    
+
 def zakup_last(request):
     last = Zakup.objects.filter(month=datetime.datetime.now().month).order_by('-id')[:10]
     return render(request, 'homeb_app/zakup_last.html', {'last': last})
 
 def zakup_detail(request, pk):
     zakup = get_object_or_404(Zakup, pk=pk)
-    return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup})
+    return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup, 'pk': pk })
+
+def zakup_delete(request, pk):
+    zakup= Zakup.objects.get(pk=pk)
+    zakup.delete()
+    return HttpResponseRedirect('homeb_app/zakup_list.html', {'zakup': zakup})
 
 def zakup_nowy(request):
     if request.method == "POST":

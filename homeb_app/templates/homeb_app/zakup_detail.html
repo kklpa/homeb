@@ -10,5 +10,8 @@
         <p>miesiac: {{ zakup.month }}</p>
         <p>rok: {{ zakup.year }}</p>
         <p>data dodania: {{ zakup.date }}</p>
+        <button type="button">
+                <a href="{% url 'zakup_delete' %}">Delete</a>
+        </button>
     </div>
 {% endblock %}
