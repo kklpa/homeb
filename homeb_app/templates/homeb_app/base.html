@@ -10,8 +10,10 @@
     </head>
     <body>
         <div class="page-header">
-            <a href="{% url 'zakup_nowy' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-            <a href="{% url 'zakup_month' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            <a href="{% url 'zakup_list' %}" class="top-menu"><span class="glyphicon glyphicon-plus">list</span></a>
+            <a href="{% url 'zakup_last' %}" class="top-menu"><span class="glyphicon glyphicon-plus">last</span></a>
+            <a href="{% url 'zakup_nowy' %}" class="top-menu"><span class="glyphicon glyphicon-plus">add</span></a>
+            <a href="{% url 'zakup_month' %}" class="top-menu"><span class="glyphicon glyphicon-plus">summary</span></a>
             <h1><a href="/">homeb site</a></h1>
         </div>
         <div class="content container">
