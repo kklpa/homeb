@@ -17,12 +17,7 @@ def zakup_last(request):
 
 def zakup_detail(request, pk):
     zakup = get_object_or_404(Zakup, pk=pk)
-    return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup, 'pk': pk })
-
-def zakup_delete(request, pk):
-    zakup= Zakup.objects.get(pk=pk)
-    zakup.delete()
-    return HttpResponseRedirect('homeb_app/zakup_list.html', {'zakup': zakup})
+    return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup })
 
 def zakup_nowy(request):
     if request.method == "POST":
@@ -35,6 +30,13 @@ def zakup_nowy(request):
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
+
+def zakup_delete(request, pk):
+    print('asdasdasd')
+    zakup = Zakup.objects.get(pk=pk)
+    zakup.delete()
+    zakup.save()
+    return HttpResponseRedirect('homeb_app/zakup_list.html', {'zakup': zakup })
 
 def zakup_month(request):
     kategorie = Kategoria.objects.all()

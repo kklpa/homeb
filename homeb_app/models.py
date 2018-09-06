@@ -12,8 +12,6 @@ class Miesiac(models.Model):
     def __str__(self):
         return self.name
 
-
-
 class Zakup(models.Model):
     category = models.ForeignKey(Kategoria, on_delete=models.CASCADE, default=1)
     month = models.ForeignKey(Miesiac, on_delete=models.CASCADE)
@@ -27,9 +25,6 @@ class Zakup(models.Model):
     def amount(self):
         value = (self.price * self.quantity)
         return value
-    
-    #def __init__(self):
-    #    self.year = datetime.datetime.now().year
 
     def __str__(self):
         return self.name

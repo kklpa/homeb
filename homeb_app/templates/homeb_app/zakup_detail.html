@@ -11,7 +11,8 @@
         <p>rok: {{ zakup.year }}</p>
         <p>data dodania: {{ zakup.date }}</p>
         <button type="button">
-                <a href="{% url 'zakup_delete' %}">Delete</a>
+                <a href="{% url 'zakup_delete' pk=zakup.pk %}">Delete</a>
+                
         </button>
     </div>
 {% endblock %}
