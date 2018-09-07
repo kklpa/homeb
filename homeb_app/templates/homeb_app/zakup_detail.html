@@ -10,9 +10,12 @@
         <p>miesiac: {{ zakup.month }}</p>
         <p>rok: {{ zakup.year }}</p>
         <p>data dodania: {{ zakup.date }}</p>
-        <button type="button">
-                <a href="{% url 'zakup_delete' pk=zakup.pk %}">Delete</a>
-                
-        </button>
+        <p>pk : {{ zakup.pk }} </p>
+     
+        <form action="{% url 'zakup_delete'  zakup.pk %}" method="POST">
+            {% csrf_token %}                
+            <input id="submit" type="button" value="delete" />
+        </form>
+        
     </div>
 {% endblock %}

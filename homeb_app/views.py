@@ -31,7 +31,7 @@ def zakup_nowy(request):
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
 
-def zakup_delete(request, pk):
+def zakup_delete(pk):
     print('asdasdasd')
     zakup = Zakup.objects.get(pk=pk)
     zakup.delete()
