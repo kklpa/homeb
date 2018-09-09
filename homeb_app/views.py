@@ -2,23 +2,25 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 import datetime
 from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
 
 from .forms import ZakupForm
 from .models import Zakup, Kategoria, Miesiac
 
+@login_required
 def zakup_list(request):
     '''zakupy = Zakup.objects.filter(category__name="jedzenie").values('price', 'date', 'name')'''
     zakupy = Zakup.objects.all()
     return render(request, 'homeb_app/zakup_list.html', {'zakupy': zakupy})
-
+@login_required
 def zakup_last(request):
     last = Zakup.objects.filter(month=datetime.datetime.now().month).order_by('-id')[:10]
     return render(request, 'homeb_app/zakup_last.html', {'last': last})
-
+@login_required
 def zakup_detail(request, pk):
     zakup = get_object_or_404(Zakup, pk=pk)
     return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup })
-
+@login_required
 def zakup_nowy(request):
     if request.method == "POST":
         form = ZakupForm(request.POST)
@@ -30,14 +32,14 @@ def zakup_nowy(request):
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
-
+@login_required
 def zakup_delete(request, pk):
     print('asdasdasd')
     zakup = Zakup.objects.get(pk=pk)
     zakup.delete()
     zakup.save()
     return redirect('zakup_list')
-
+@login_required
 def zakup_month(request):
     kategorie = Kategoria.objects.all()
     miesiace = Miesiac.objects.all()
@@ -51,6 +53,12 @@ def zakup_month(request):
             totals.append(kategoria)
             totals.append(k)
     return render(request, 'homeb_app/zakup_month.html', ({ 'miesiace': miesiace, 'kategorie': kategorie, 'totals': totals }) )
+
+def login_view(request):
+    return render(request, 'registration/login.hml', {'form': login})
+
+def logout_view(request):
+    return redirect(request, '/')
 
 '''
 15 elementor na 12 miesiecy
@@ -109,10 +117,5 @@ itd
         Zakup.objects.filter(month__name="sierpien").values('total').aggregate(Sum('total'))
 Zakup.objects.all().delete()
 '''
-'''
-def login_view(request):
-    return render(request, 'registration/login.hml', {'form': login})
 
-def logout_view(request):
-    return redirect(request, '/')
-'''
+
