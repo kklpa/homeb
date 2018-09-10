@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.utils.timezone import utc
+from django.contrib.auth.models import User
 
 class Kategoria(models.Model):
     name = models.CharField(max_length=30)
@@ -11,12 +12,6 @@ class Miesiac(models.Model):
     name = models.CharField(max_length=15)
     def __str__(self):
         return self.name
-
-class User(models.Model):
-    name = models.CharField(max_length=20)
-    password = models.CharField(max_length=40)
-    email = models.CharField(max_length=30)
-
 
 class Zakup(models.Model):
     category = models.ForeignKey(Kategoria, on_delete=models.CASCADE, default=1)

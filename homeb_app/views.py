@@ -12,14 +12,17 @@ def zakup_list(request):
     '''zakupy = Zakup.objects.filter(category__name="jedzenie").values('price', 'date', 'name')'''
     zakupy = Zakup.objects.all()
     return render(request, 'homeb_app/zakup_list.html', {'zakupy': zakupy})
+
 @login_required
 def zakup_last(request):
     last = Zakup.objects.filter(month=datetime.datetime.now().month).order_by('-id')[:10]
     return render(request, 'homeb_app/zakup_last.html', {'last': last})
+
 @login_required
 def zakup_detail(request, pk):
     zakup = get_object_or_404(Zakup, pk=pk)
     return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup })
+
 @login_required
 def zakup_nowy(request):
     if request.method == "POST":
@@ -27,11 +30,13 @@ def zakup_nowy(request):
         if form.is_valid():
             zakup = form.save(commit=False)
             zakup.total = zakup.price * zakup.quantity
+            zakup.user = request.user
             zakup.save()
             return redirect('zakup_list')
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
     return render(request, 'homeb_app/zakup_edit.html', {'form': form})
+
 @login_required
 def zakup_delete(request, pk):
     print('asdasdasd')
@@ -39,6 +44,7 @@ def zakup_delete(request, pk):
     zakup.delete()
     zakup.save()
     return redirect('zakup_list')
+
 @login_required
 def zakup_month(request):
     kategorie = Kategoria.objects.all()
@@ -61,6 +67,8 @@ def logout_view(request):
     return redirect(request, '/')
 
 '''
+z = Zakup.objects.filter(month__name='wrzesien').values('user__username')
+user = auth.authenticate(username="name", password="pass")
 15 elementor na 12 miesiecy
 
     sumy = []
