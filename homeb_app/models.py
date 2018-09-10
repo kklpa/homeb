@@ -12,6 +12,12 @@ class Miesiac(models.Model):
     def __str__(self):
         return self.name
 
+class User(models.Model):
+    name = models.CharField(max_length=20)
+    password = models.CharField(max_length=40)
+    email = models.CharField(max_length=30)
+
+
 class Zakup(models.Model):
     category = models.ForeignKey(Kategoria, on_delete=models.CASCADE, default=1)
     month = models.ForeignKey(Miesiac, on_delete=models.CASCADE)
@@ -21,6 +27,7 @@ class Zakup(models.Model):
     quantity = models.IntegerField(default=1)
     total= models.FloatField(default=0.1)
     date = models.DateField(auto_now_add=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def amount(self):
         value = (self.price * self.quantity)
