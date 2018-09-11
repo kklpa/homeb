@@ -10,8 +10,8 @@
                 <p>nazwa: {{ zakup.name }}</p>
                 <p>cena: {{ zakup.price }}</p>
                 <p>ilosc: {{ zakup.quantity }}</p>
-                <p>suma: {{ zakup.amount }}</p>
-                <p>miesiac: {{ zakup.month }}</p>
+                <p>suma: {{ zakup.total }}</p>
+                <p>miesiac: {{ zakup.month__name }}</p>
                 <p>rok: {{ zakup.year }}</p>
             </div>
         {% endfor %}

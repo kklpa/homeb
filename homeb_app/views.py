@@ -9,13 +9,15 @@ from .models import Zakup, Kategoria, Miesiac
 
 @login_required
 def zakup_list(request):
-    '''zakupy = Zakup.objects.filter(category__name="jedzenie").values('price', 'date', 'name')'''
+    '''
     zakupy = Zakup.objects.all()
+    '''
+    zakupy = Zakup.objects.filter(user__username=request.user).values('pk', 'date', 'name', 'category', 'price', 'quantity', 'total', 'month__name', 'year')
     return render(request, 'homeb_app/zakup_list.html', {'zakupy': zakupy})
 
 @login_required
 def zakup_last(request):
-    last = Zakup.objects.filter(month=datetime.datetime.now().month).order_by('-id')[:10]
+    last = Zakup.objects.filter(user__username=request.user).order_by('-id')[:10]
     return render(request, 'homeb_app/zakup_last.html', {'last': last})
 
 @login_required
@@ -39,10 +41,10 @@ def zakup_nowy(request):
 
 @login_required
 def zakup_delete(request, pk):
-    print('asdasdasd')
-    zakup = Zakup.objects.get(pk=pk)
-    zakup.delete()
-    zakup.save()
+    #print('asdasdasd')
+    zakup = Zakup.objects.get(pk=pk).delete()
+    #zakup.delete()
+    #zakup.save()
     return redirect('zakup_list')
 
 @login_required
