@@ -8,22 +8,24 @@ from .forms import ZakupForm
 from .models import Zakup, Kategoria, Miesiac
 
 @login_required
-def zakup_list(request):
+def zakup_main(request):
     '''
     zakupy = Zakup.objects.all()
     '''
     zakupy = Zakup.objects.filter(user__username=request.user).values('pk', 'date', 'name', 'category', 'price', 'quantity', 'total', 'month__name', 'year')
-    return render(request, 'homeb_app/zakup_list.html', {'zakupy': zakupy})
-
-@login_required
-def zakup_last(request):
-    last = Zakup.objects.filter(user__username=request.user).order_by('-id')[:10]
-    return render(request, 'homeb_app/zakup_last.html', {'last': last})
-
-@login_required
-def zakup_detail(request, pk):
-    zakup = get_object_or_404(Zakup, pk=pk)
-    return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup })
+    last = Zakup.objects.filter(user__username=request.user).order_by('-id')[:5]
+    kategorie = Kategoria.objects.all()
+    miesiace = Miesiac.objects.all()
+    totals = []
+    for miesiac in miesiace:
+        m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
+        totals.append(miesiac)
+        for kategoria in kategorie:
+            k = (Zakup.objects.filter(user__username=request.user, month__name=miesiac, category=kategoria, year=datetime.datetime.now().year).values('category__name', 'total').aggregate(Sum('total')))
+            k = k.pop('total__sum', '0')
+            totals.append(kategoria)
+            totals.append(k)
+    return render(request, 'homeb_app/main.html', {'zakupy': zakupy, 'last': last, 'totals': totals })
 
 @login_required
 def zakup_nowy(request):
@@ -37,36 +39,37 @@ def zakup_nowy(request):
             return redirect('zakup_list')
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
-    return render(request, 'homeb_app/zakup_edit.html', {'form': form})
-
-@login_required
-def zakup_delete(request, pk):
-    #print('asdasdasd')
-    zakup = Zakup.objects.get(pk=pk).delete()
-    #zakup.delete()
-    #zakup.save()
-    return redirect('zakup_list')
+    return render(request, 'homeb_app/base.html', {'form': form})
 
 @login_required
 def zakup_month(request):
-    kategorie = Kategoria.objects.all()
-    miesiace = Miesiac.objects.all()
-    totals = []
-    for miesiac in miesiace:
-        m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
-        totals.append(miesiac)
-        for kategoria in kategorie:
-            k = (Zakup.objects.filter(user__username=request.user, month__name=miesiac, category=kategoria, year=datetime.datetime.now().year).values('category__name', 'total').aggregate(Sum('total')))
-            k = k.pop('total__sum', '0')
-            totals.append(kategoria)
-            totals.append(k)
     return render(request, 'homeb_app/zakup_month.html', ({ 'miesiace': miesiace, 'kategorie': kategorie, 'totals': totals }) )
+
+@login_required
+def zakup_delete(request, pk):
+    zakup = Zakup.objects.get(pk=pk).delete()
+    return redirect('/')
+
+@login_required
+def zakup_detail(request, pk):
+    zakup = get_object_or_404(Zakup, pk=pk)
+    return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup })
 
 def login_view(request):
     return render(request, 'registration/login.hml', {'form': login})
 
 def logout_view(request):
     return redirect(request, '/')
+
+'''
+@login_required
+def zakup_last(request):
+    return render(request, 'homeb_app/base.html', {'last': last})
+'''
+'''
+'''
+'''
+'''
 
 '''
 z = Zakup.objects.filter(month__name='wrzesien').values('user__username')
