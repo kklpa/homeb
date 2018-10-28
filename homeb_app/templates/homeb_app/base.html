@@ -1,21 +1,12 @@
-{% load static %}
 
 <html>
     <head>
         <title>homeb</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{% static 'css/homeb.css' %}">
     </head>
     <body>
         <div class="page-header">
-            <a href="{% url 'zakup_list' %}" class="top-menu"><span class="glyphicon glyphicon-plus">list</span></a>
-            <a href="{% url 'zakup_last' %}" class="top-menu"><span class="glyphicon glyphicon-plus">last</span></a>
-            <a href="{% url 'zakup_nowy' %}" class="top-menu"><span class="glyphicon glyphicon-plus">add</span></a>
-            <a href="{% url 'zakup_month' %}" class="top-menu"><span class="glyphicon glyphicon-plus">summary</span></a>
             <a href="{% url 'logout_view' %}" class="top-menu"><span class="glyphicon glyphicon-plus">logout</span></a>
-            <h1><a href="/">homeb site</a></h1>
+            <a href="/">homeb site</a>
         </div>
         <div class="content container">
             <div class="row">
