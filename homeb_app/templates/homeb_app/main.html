@@ -131,10 +131,14 @@
     <table>
         <tr>
             <p><b>last 5</b></p>
+            <style>td {
+               border: 3px solid black; 
+            }
+            </style>
             {% for l in last %}
-            <td width="17%"> html nie wspiera, uzyj css :-/
-                <b>kategoria: {{ l.category }}</b><br>
-                nazwa: <a href="{% url 'zakup_detail' pk=l.pk %}">{{ l.name }}</a><br>
+            <td>
+                <b>nazwa: <a href="{% url 'zakup_detail' pk=l.pk %}">{{ l.name }}</a></b><br>
+                kategoria: {{ l.category }}<br>
                 <!-- <p>cena: {{ l.price }}</p> -->
                 <!-- <td><p>ilosc: {{ l.quantity }}</p></td> -->
                 suma: {{ l.amount }}<br>
