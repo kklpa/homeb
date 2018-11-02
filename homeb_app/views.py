@@ -36,10 +36,10 @@ def zakup_nowy(request):
             zakup.total = zakup.price * zakup.quantity
             zakup.user = request.user
             zakup.save()
-            return redirect('zakup_list')
+            return redirect('/')
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
-    return render(request, 'homeb_app/base.html', {'form': form})
+    return render(request, 'homeb_app/zakup_edit.html', {'form': form})
 
 @login_required
 def zakup_month(request):
