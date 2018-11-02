@@ -147,9 +147,13 @@
                 <!-- <p>data dodania: {{ l.date }}</p> -->
             </td>
             {% endfor %}
-            <td>asdasd</td>
-            <td>asdasd</td>
-            <td>asdasd</td>
+            <td>
+            
+                <form method="POST" class="post-form">{% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="save btn btn-default">Dodaj</button>
+                </form>
+            </td>
         </tr>
     </table>
 </div>

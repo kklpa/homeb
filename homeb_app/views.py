@@ -25,10 +25,6 @@ def zakup_main(request):
             k = k.pop('total__sum', '0')
             totals.append(kategoria)
             totals.append(k)
-    return render(request, 'homeb_app/main.html', {'zakupy': zakupy, 'last': last, 'totals': totals })
-
-@login_required
-def zakup_nowy(request):
     if request.method == "POST":
         form = ZakupForm(request.POST)
         if form.is_valid():
@@ -39,8 +35,12 @@ def zakup_nowy(request):
             return redirect('/')
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
-    return render(request, 'homeb_app/zakup_edit.html', {'form': form})
+    return render(request, 'homeb_app/main.html', {'zakupy': zakupy, 'last': last, 'totals': totals, 'form': form })
 
+'''@login_required
+def zakup_nowy(request):
+    return render(request, 'homeb_app/main.html', {'form': form})
+'''
 @login_required
 def zakup_month(request):
     return render(request, 'homeb_app/zakup_month.html', ({ 'miesiace': miesiace, 'kategorie': kategorie, 'totals': totals }) )
