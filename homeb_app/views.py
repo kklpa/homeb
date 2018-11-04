@@ -21,7 +21,8 @@ def zakup_main(request):
     #m_temp = 12
     #y = datetime.datetime.now().year
     #for miesiac in reversed(miesiace):
-        
+    ######
+    #m = Miesiac.objects.all().values('id')    
     #    print("miesiac: ", miesiac)
     totals = []
     for miesiac in miesiace:
