@@ -16,12 +16,21 @@ def zakup_main(request):
     last = Zakup.objects.filter(user__username=request.user).order_by('-id')[:5]
     kategorie = Kategoria.objects.all()
     miesiace = Miesiac.objects.all()
+    #print(miesiace)
+    #m = datetime.datetime.now().month
+    #m_temp = 12
+    #y = datetime.datetime.now().year
+    #for miesiac in reversed(miesiace):
+        
+    #    print("miesiac: ", miesiac)
     totals = []
     for miesiac in miesiace:
-        m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
+        print(miesiac, '\n')
+        #m = Zakup.objects.filter(month__name=miesiac, year=ok).values('total').aggregate(Sum('total'))
         totals.append(miesiac)
         for kategoria in kategorie:
             k = (Zakup.objects.filter(user__username=request.user, month__name=miesiac, category=kategoria, year=datetime.datetime.now().year).values('category__name', 'total').aggregate(Sum('total')))
+            #k = (Zakup.objects.filter(user__username=request.user, month__name=miesiac, category=kategoria, year=2018).values('category__name', 'total').aggregate(Sum('total')))
             k = k.pop('total__sum', '0')
             totals.append(kategoria)
             totals.append(k)
