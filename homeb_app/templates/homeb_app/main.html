@@ -138,6 +138,7 @@
                         <button type="submit" class="save btn btn-default">Dodaj</button>
                     </form>
                 </td>
+                
             <style>td {
                border: 3px solid black; 
             }
@@ -155,6 +156,12 @@
                 data dodania: {{ l.date }}
             </td>
             {% endfor %}
+        </tr>
+        <tr>
+            <td valign="top">
+                <b><u>wydales dzis:</u></b><br><br>
+                &nbsp; {{ day_sum }} zl
+            </td>
         </tr>
     </table>
 </div>
