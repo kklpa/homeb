@@ -1,0 +1,27 @@
+{% extends 'homeb_app/base.html' %}
+
+{% block content %}
+    <table><tr>
+    {% for day_detail in day_details %}
+        <td>
+        <div class="post">
+            <p><b>nazwa: {{ day_detail.name }}</b></p>
+            <p>kategoria: {{ day_detail.category__name }}&nbsp;&nbsp;&nbsp;</p>
+            <p>miesiac: {{ day_detail.month__name }}</p>
+            <p>cena: {{ day_detail.price }}</p>
+            <p>ilosc: {{ day_detail.quantity }}</p>
+            <p>suma: {{ day_detail.total }}</p>
+            <form method="POST" class="post-form" action="{% url 'zakup_delete'  day_detail.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-default">delete</button>
+            </form>
+        </div>
+    </td>
+    {% endfor %}
+</tr></table>
+{% endblock %}
+<!-- 
+    <p>rok: {{ day_details.year }}</p>
+    <p>data dodania: {{ day_detail.date }}</p>
+    <p>pk : {{ day_details.pk }} </p>
+                    -->

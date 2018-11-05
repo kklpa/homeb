@@ -70,14 +70,6 @@ def zakup_main(request):
     '''------------------------render page---------------------------------'''
     return render(request, 'homeb_app/main.html', { 'last': last, 'totals': totals, 'form': form, 'day_sum': day_sum, 'month_sum': month_sum })
 
-'''@login_required
-def zakup_nowy(request):
-    return render(request, 'homeb_app/main.html', {'form': form})
-'''
-@login_required
-def zakup_month(request):
-    return render(request, 'homeb_app/zakup_month.html', ({ 'miesiace': miesiace, 'kategorie': kategorie, 'totals': totals }) )
-
 @login_required
 def zakup_delete(request, pk):
     zakup = Zakup.objects.get(pk=pk).delete()
@@ -88,12 +80,32 @@ def zakup_detail(request, pk):
     zakup = get_object_or_404(Zakup, pk=pk)
     return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup })
 
+@login_required
+def zakup_day_detail(request):
+    day_details = (Zakup.objects.filter(user__username=request.user, date=datetime.datetime.now()).values('pk', 'name', 'price', 'quantity', 'category__name', 'month__name', 'total', 'date' ))
+    print('####: ', day_details)
+    return render(request, 'homeb_app/zakup_day_detail.html', {'day_details': day_details })
+'''
+@login_required
+def zakup_month_detail(request, pk):
+    return render(request, 'homeb_app/zakup_month_detail.html', {'month_detail': month_detail })
+'''
+
 def login_view(request):
     return render(request, 'registration/login.hml', {'form': login})
 
 def logout_view(request):
     return redirect(request, '/')
 
+'''@login_required
+def zakup_nowy(request):
+    return render(request, 'homeb_app/main.html', {'form': form})
+'''
+'''
+@login_required
+def zakup_month(request):
+    return render(request, 'homeb_app/zakup_month.html', ({ 'miesiace': miesiace, 'kategorie': kategorie, 'totals': totals }) )
+'''
 '''
 @login_required
 def zakup_last(request):
