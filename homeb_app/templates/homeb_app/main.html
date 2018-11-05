@@ -130,26 +130,38 @@
     <br>
     <table>
         <tr>
-            <p><b>last 5</b></p>
+            <!--<p><b>last 5</b></p>-->
+                <td>
+                    <b><u>dodaj zakup</u></b>
+                    <form method="POST" class="post-form">{% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="save btn btn-default">Dodaj</button>
+                    </form>
+                </td>
+                
             <style>td {
                border: 3px solid black; 
             }
             </style>
             {% for l in last %}
-            <td>
-                <b>nazwa: <a href="{% url 'zakup_detail' pk=l.pk %}">{{ l.name }}</a></b><br>
-                kategoria: {{ l.category }}<br>
+            <td valign="top">
+                <b><u>last 5</u></b><br><br>
+                <b>nazwa: <a href="{% url 'zakup_detail' pk=l.pk %}">{{ l.name }}</a></b><br><br>
+                kategoria: {{ l.category }}<br><br>
                 <!-- <p>cena: {{ l.price }}</p> -->
                 <!-- <td><p>ilosc: {{ l.quantity }}</p></td> -->
-                suma: {{ l.amount }}<br>
-                miesiac: {{ l.month }}<br>
-                rok: {{ l.year }}<br>
-                <!-- <p>data dodania: {{ l.date }}</p> -->
+                suma: {{ l.amount }}<br><br>
+                miesiac: {{ l.month }}<br><br>
+                rok: {{ l.year }}<br><br>
+                data dodania: {{ l.date }}
             </td>
             {% endfor %}
-            <td>asdasd</td>
-            <td>asdasd</td>
-            <td>asdasd</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <b><u>wydales dzis:</u></b><br><br>
+                &nbsp; {{ day_sum }} zl
+            </td>
         </tr>
     </table>
 </div>

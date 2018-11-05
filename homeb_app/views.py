@@ -16,19 +16,27 @@ def zakup_main(request):
     last = Zakup.objects.filter(user__username=request.user).order_by('-id')[:5]
     kategorie = Kategoria.objects.all()
     miesiace = Miesiac.objects.all()
+    #print(miesiace)
+    #m = datetime.datetime.now().month
+    #m_temp = 12
+    #y = datetime.datetime.now().year
+    #for miesiac in reversed(miesiace):
+    ######
+    #m = Miesiac.objects.all().values('id')    
+    #    print("miesiac: ", miesiac)
     totals = []
     for miesiac in miesiace:
-        m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
+        print(miesiac, '\n')
+        #m = Zakup.objects.filter(month__name=miesiac, year=ok).values('total').aggregate(Sum('total'))
         totals.append(miesiac)
         for kategoria in kategorie:
             k = (Zakup.objects.filter(user__username=request.user, month__name=miesiac, category=kategoria, year=datetime.datetime.now().year).values('category__name', 'total').aggregate(Sum('total')))
+            #k = (Zakup.objects.filter(user__username=request.user, month__name=miesiac, category=kategoria, year=2018).values('category__name', 'total').aggregate(Sum('total')))
             k = k.pop('total__sum', '0')
             totals.append(kategoria)
             totals.append(k)
-    return render(request, 'homeb_app/main.html', {'zakupy': zakupy, 'last': last, 'totals': totals })
-
-@login_required
-def zakup_nowy(request):
+    day_sum = Zakup.objects.filter(date=datetime.datetime.now()).values('total').aggregate(Sum('total'))
+    day_sum = day_sum.pop('total__sum', '0')
     if request.method == "POST":
         form = ZakupForm(request.POST)
         if form.is_valid():
@@ -36,11 +44,15 @@ def zakup_nowy(request):
             zakup.total = zakup.price * zakup.quantity
             zakup.user = request.user
             zakup.save()
-            return redirect('zakup_list')
+            return redirect('/')
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
-    return render(request, 'homeb_app/base.html', {'form': form})
+    return render(request, 'homeb_app/main.html', {'zakupy': zakupy, 'last': last, 'totals': totals, 'form': form, 'day_sum': day_sum })
 
+'''@login_required
+def zakup_nowy(request):
+    return render(request, 'homeb_app/main.html', {'form': form})
+'''
 @login_required
 def zakup_month(request):
     return render(request, 'homeb_app/zakup_month.html', ({ 'miesiace': miesiace, 'kategorie': kategorie, 'totals': totals }) )
