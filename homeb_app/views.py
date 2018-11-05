@@ -9,47 +9,52 @@ from .models import Zakup, Kategoria, Miesiac
 
 @login_required
 def zakup_main(request):
-    '''
-    zakupy = Zakup.objects.all()
-    '''
-    zakupy = Zakup.objects.filter(user__username=request.user).values('pk', 'date', 'name', 'category', 'price', 'quantity', 'total', 'month__name', 'year')
+    #zakupy = Zakup.objects.all()
+    #zakupy = Zakup.objects.filter(user__username=request.user).values('pk', 'date', 'name', 'category', 'price', 'quantity', 'total', 'month__name', 'year')
+    '''-----------------------------get last 5 records----------------------'''
     last = Zakup.objects.filter(user__username=request.user).order_by('-id')[:5]
-    
+    '''-----------------------------get summary last for 12 months----------'''
     kategorie = Kategoria.objects.all()
     miesiace = Miesiac.objects.all()
     month_now = datetime.datetime.now().month
     year = datetime.datetime.now().year
     month_ids = Miesiac.objects.all().values('id')    
-    
     totals = []
-    month_table = []
     month_counter = 0
-    month_number = 0
     month_number = month_now
-    for month_id in month_ids:
-        m = month_id.pop('id')
-        month_table.append(m)
+    #start month now, stop -12, step -1
     for i in range(month_now, -12, -1):
+        #count month for exit after 12 reached
         month_counter = month_counter+1
         if month_counter > 12:
-            print('mamy 12 miesiecy')
+            #print('mamy 12 miesiecy')
             break
+        #check if year has changed
         if month_number == 0:
             month_number = 12
             year = year-1
-        n = Miesiac.objects.filter(id=month_number)
-        totals.append(n[0])
+        #get current month name
+        month_name = Miesiac.objects.filter(id=month_number)
+        #append month name to list
+        totals.append(month_name[0])
+        #iterate categories for each month and get data
         for kategoria in kategorie:
             k = (Zakup.objects.filter(user__username=request.user, month__id=month_number, category=kategoria, year=year).values('category__name', 'month__name', 'total').aggregate(Sum('total')))        
             #k = (Zakup.objects.filter(user__username=request.user, month__id=miesiac, category=kategoria, year=datetime.datetime.now().year).values('category__name', 'total').aggregate(Sum('total')))
             #k = (Zakup.objects.filter(user__username=request.user, month__name=miesiac, category=kategoria, year=2018).values('category__name', 'total').aggregate(Sum('total')))
+            #remove total__sum from k
             k = k.pop('total__sum', '0')
+            #append category name
             totals.append(kategoria)
+            #append queried total for category in current month
             totals.append(k)
+        #decrement month number
         month_number = month_number-1
     #print('totals: ', totals)      
+    '''------------------------get current day summary---------------------'''
     day_sum = Zakup.objects.filter(date=datetime.datetime.now()).values('total').aggregate(Sum('total'))
     day_sum = day_sum.pop('total__sum', '0')
+    '''------------------------post form for dodaj zakup-------------------'''
     if request.method == "POST":
         form = ZakupForm(request.POST)
         if form.is_valid():
@@ -60,7 +65,8 @@ def zakup_main(request):
             return redirect('/')
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
-    return render(request, 'homeb_app/main.html', {'zakupy': zakupy, 'last': last, 'totals': totals, 'form': form, 'day_sum': day_sum })
+    '''------------------------render page---------------------------------'''
+    return render(request, 'homeb_app/main.html', { 'last': last, 'totals': totals, 'form': form, 'day_sum': day_sum })
 
 '''@login_required
 def zakup_nowy(request):
