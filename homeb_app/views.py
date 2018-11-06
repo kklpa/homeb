@@ -12,7 +12,7 @@ def zakup_main(request):
     #zakupy = Zakup.objects.all()
     #zakupy = Zakup.objects.filter(user__username=request.user).values('pk', 'date', 'name', 'category', 'price', 'quantity', 'total', 'month__name', 'year')
     '''-----------------------------get last 5 records----------------------'''
-    last = Zakup.objects.filter(user__username=request.user).order_by('-id')[:5]
+    last5 = Zakup.objects.filter(user__username=request.user).order_by('-id')[:5]
     '''-----------------------------get summary last for 12 months----------'''
     kategorie = Kategoria.objects.all()
     miesiace = Miesiac.objects.all()
@@ -69,7 +69,7 @@ def zakup_main(request):
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
     '''------------------------render page---------------------------------'''
-    return render(request, 'homeb_app/main.html', { 'last': last, 'totals': totals, 'form': form, 'day_sum': day_sum, 'month_sum': month_sum })
+    return render(request, 'homeb_app/main.html', { 'last5': last5, 'totals': totals, 'form': form, 'day_sum': day_sum, 'month_sum': month_sum })
 
 @login_required
 def zakup_delete(request, pk):

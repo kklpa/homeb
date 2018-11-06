@@ -1,18 +1,18 @@
 {% extends 'homeb_app/base.html' %}
     {% block content %}
-        {% for l in last %}
+        {% for last in last5 %}
         <div class="post">
             <div class="date">
-                <p>data dodania: {{ l.date }}</p>
+                <p>data dodania: {{ last.date }}</p>
             </div>
-            <h1><a href="{% url 'zakup_detail' pk=l.pk %}">{{ l.name }}</a></h1>
-                <p>kategoria: {{ l.category }}</p>
-                <p>nazwa: {{ l.name }}</p>
-                <p>cena: {{ l.price }}</p>
-                <p>ilosc: {{ l.quantity }}</p>
-                <p>suma: {{ l.amount }}</p>
-                <p>miesiac: {{ l.month }}</p>
-                <p>rok: {{ l.year }}</p>
+            <h1><a href="{% url 'zakup_detail' pk=l.pk %}">{{ last.name }}</a></h1>
+                <p>kategoria: {{ last.category }}</p>
+                <p>nazwa: {{ last.name }}</p>
+                <p>cena: {{ last.price }}</p>
+                <p>ilosc: {{ last.quantity }}</p>
+                <p>suma: {{ last.amount }}</p>
+                <p>miesiac: {{ last.month }}</p>
+                <p>rok: {{ last.year }}</p>
             </div>
         {% endfor %}
     {% endblock %}    

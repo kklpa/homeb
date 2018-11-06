@@ -143,17 +143,21 @@
                border: 3px solid black; 
             }
             </style>
-            {% for l in last %}
+            {% for last in last5 %}
             <td valign="top">
                 <b><u>last 5</u></b><br><br>
-                <b>nazwa: <a href="{% url 'zakup_detail' pk=l.pk %}">{{ l.name }}</a></b><br><br>
-                kategoria: {{ l.category }}<br><br>
+                <b>nazwa: <a href="{% url 'zakup_detail' pk=last.pk %}">{{ last.name }}</a></b><br><br>
+                kategoria: {{ last.category }}<br><br>
                 <!-- <p>cena: {{ l.price }}</p> -->
                 <!-- <td><p>ilosc: {{ l.quantity }}</p></td> -->
-                suma: {{ l.amount }}<br><br>
-                miesiac: {{ l.month }}<br><br>
-                rok: {{ l.year }}<br><br>
-                data dodania: {{ l.date }}
+                suma: {{ last.amount }}<br><br>
+                miesiac: {{ last.month }}<br><br>
+                <!-- rok: {{ l.year }}<br><br> -->
+                data dodania: {{ last.date }}<br><br>
+                <form method="POST" class="post-form" action="{% url 'zakup_delete'  last.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-default">delete</button>
+                </form>
             </td>
             {% endfor %}
         </tr>
