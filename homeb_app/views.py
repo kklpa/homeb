@@ -17,10 +17,11 @@ def zakup_main(request):
     kategorie = Kategoria.objects.all()
     miesiace = Miesiac.objects.all()
     month_now = datetime.datetime.now().month
-    year = datetime.datetime.now().year
+    year_now = datetime.datetime.now().year
     totals = []
     month_counter = 0
     month_number = month_now
+    year = year_now
     #start month now, stop -12, step -1
     for i in range(month_now, -12, -1):
         #count month for exit after 12 reached
@@ -54,7 +55,7 @@ def zakup_main(request):
     day_sum = Zakup.objects.filter(date=datetime.datetime.now()).values('total').aggregate(Sum('total'))
     day_sum = day_sum.pop('total__sum', '0')
     '''------------------------get current month summary-------------------'''
-    month_sum = Zakup.objects.filter(month__id=month_now).values('total').aggregate(Sum('total'))
+    month_sum = Zakup.objects.filter(month__id=month_now, year=year_now).values('total').aggregate(Sum('total'))
     month_sum = month_sum.pop('total__sum', '0')
     '''------------------------post form for dodaj zakup-------------------'''
     if request.method == "POST":
