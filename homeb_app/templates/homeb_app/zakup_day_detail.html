@@ -7,7 +7,7 @@
             {% for day_detail in day_details %}
                 <td>
                     <div class="post">
-                        <p><b>nazwa: {{ day_detail.name }}</b></p>
+                        <p><b>nazwa:  <a href="{% url 'zakup_detail' pk=day_detail.pk %}">{{ day_detail.name }}</a></b></p>
                         <p>kategoria: {{ day_detail.category__name }}&nbsp;&nbsp;&nbsp;</p>
                         <p>miesiac: {{ day_detail.month__name }}</p>
                         <p>cena: {{ day_detail.price }}</p>

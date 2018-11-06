@@ -7,7 +7,7 @@
             {% for month_detail in month_details %}
                 <td>
                     <div class="post">
-                        <p><b>nazwa: {{ month_detail.name }}</b></p>
+                        <p><b>nazwa: <a href="{% url 'zakup_detail' pk=month_detail.pk %}">{{ month_detail.name }}</a></b></p>
                         <p>kategoria: {{ month_detail.category__name }}&nbsp;&nbsp;&nbsp;</p>
                         <p>miesiac: {{ month_detail.month__name }}</p>
                         <p>cena: {{ month_detail.price }}</p>

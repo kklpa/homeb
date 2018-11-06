@@ -1,6 +1,10 @@
 {% extends 'homeb_app/base.html' %}
 
 {% block content %}
+<br>
+<a href="{% url 'zakup_day_detail'  %} ">zakup day detail</a>&nbsp;
+<a href="{% url 'zakup_month_detail' %} ">zakup month detail</a>
+<br>
     <br><b>zakup detail</b>
     <div class="post">
         <p>nazwa: {{ zakup.name }}</p>
