@@ -86,11 +86,12 @@ def zakup_day_detail(request):
     day_details = (Zakup.objects.filter(user__username=request.user, date=datetime.datetime.now()).values('pk', 'name', 'price', 'quantity', 'category__name', 'month__name', 'total', 'date' ))
     print('####: ', day_details)
     return render(request, 'homeb_app/zakup_day_detail.html', {'day_details': day_details })
-'''
+
 @login_required
-def zakup_month_detail(request, pk):
-    return render(request, 'homeb_app/zakup_month_detail.html', {'month_detail': month_detail })
-'''
+def zakup_month_detail(request):
+    month_details = (Zakup.objects.filter(user__username=request.user, month__id=datetime.datetime.now().month, year=datetime.datetime.now().year).values('pk', 'name', 'price', 'quantity', 'category__name', 'month__name', 'total', 'date' ))
+    print(month_details)
+    return render(request, 'homeb_app/zakup_month_detail.html', {'month_details': month_details })
 
 def login_view(request):
     return render(request, 'registration/login.hml', {'form': login})

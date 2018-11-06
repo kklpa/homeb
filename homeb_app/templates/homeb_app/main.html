@@ -6,7 +6,7 @@
 <div class="main_table"></div>
     <table>
         <tr>
-            <center><b>last year</b></center>
+            <center><b>last 12 months</b></center>
             <td width="500"></td>
             <td width="500" height="30">{{ totals.0 }}</td>
             <td width="500" height="30">{{ totals.15 }}</td>
@@ -164,7 +164,7 @@
             </td>
             <td valign="top">
                 <b><u>wydales w tym mc:</u></b><br><br>
-                &nbsp;  {{ month_sum }} zl </a>
+                &nbsp;  {{ month_sum }} zl <a href="{% url 'zakup_month_detail' %}"> zobacz</a>
             </td>
         </tr>
     </table>

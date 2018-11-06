@@ -9,6 +9,6 @@ urlpatterns = [
     path('zakup/<int:pk>/', views.zakup_detail, name='zakup_detail'),
     #path('zakup/podsumowanie/', views.zakup_month, name='zakup_month'),
     path('zakup/day_detail/', views.zakup_day_detail, name='zakup_day_detail'),
-    #path('zakup/month_details/', views.zakup_delete, name='zakup_month_detail'),
+    path('zakup/month_details/', views.zakup_month_detail, name='zakup_month_detail'),
     path('zakup/delete/<int:pk>/', views.zakup_delete, name='zakup_delete'),
 ]
