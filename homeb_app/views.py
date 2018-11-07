@@ -9,28 +9,6 @@ from .models import Zakup, Kategoria, Miesiac
 
 @login_required
 def zakup_main(request):
-<<<<<<< HEAD
-    '''
-    zakupy = Zakup.objects.all()
-    '''
-    zakupy = Zakup.objects.filter(user__username=request.user).values('pk', 'date', 'name', 'category', 'price', 'quantity', 'total', 'month__name', 'year')
-    last = Zakup.objects.filter(user__username=request.user).order_by('-id')[:5]
-    kategorie = Kategoria.objects.all()
-    miesiace = Miesiac.objects.all()
-    totals = []
-    for miesiac in miesiace:
-        m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
-        totals.append(miesiac)
-        for kategoria in kategorie:
-            k = (Zakup.objects.filter(user__username=request.user, month__name=miesiac, category=kategoria, year=datetime.datetime.now().year).values('category__name', 'total').aggregate(Sum('total')))
-            k = k.pop('total__sum', '0')
-            totals.append(kategoria)
-            totals.append(k)
-    return render(request, 'homeb_app/main.html', {'zakupy': zakupy, 'last': last, 'totals': totals })
-
-@login_required
-def zakup_nowy(request):
-=======
     #zakupy = Zakup.objects.all()
     #zakupy = Zakup.objects.filter(user__username=request.user).values('pk', 'date', 'name', 'category', 'price', 'quantity', 'total', 'month__name', 'year')
     '''-----------------------------get last 5 records----------------------'''
@@ -80,7 +58,6 @@ def zakup_nowy(request):
     month_sum = Zakup.objects.filter(month__id=month_now, year=year_now).values('total').aggregate(Sum('total'))
     month_sum = month_sum.pop('total__sum', '0')
     '''------------------------post form for dodaj zakup-------------------'''
->>>>>>> css_html
     if request.method == "POST":
         form = ZakupForm(request.POST)
         if form.is_valid():
@@ -91,16 +68,8 @@ def zakup_nowy(request):
             return redirect('/')
     else:
         form = ZakupForm(initial={'year': datetime.datetime.now().year, 'month': datetime.datetime.now().month })
-<<<<<<< HEAD
-    return render(request, 'homeb_app/base.html', {'form': form})
-
-@login_required
-def zakup_month(request):
-    return render(request, 'homeb_app/zakup_month.html', ({ 'miesiace': miesiace, 'kategorie': kategorie, 'totals': totals }) )
-=======
     '''------------------------render page---------------------------------'''
     return render(request, 'homeb_app/main.html', { 'last5': last5, 'totals': totals, 'form': form, 'day_sum': day_sum, 'month_sum': month_sum })
->>>>>>> css_html
 
 @login_required
 def zakup_delete(request, pk):
@@ -111,8 +80,6 @@ def zakup_delete(request, pk):
 def zakup_detail(request, pk):
     zakup = get_object_or_404(Zakup, pk=pk)
     return render(request, 'homeb_app/zakup_detail.html', {'zakup': zakup })
-<<<<<<< HEAD
-=======
 
 @login_required
 def zakup_day_detail(request):
@@ -125,7 +92,6 @@ def zakup_month_detail(request):
     month_details = (Zakup.objects.filter(user__username=request.user, month__id=datetime.datetime.now().month, year=datetime.datetime.now().year).values('pk', 'name', 'price', 'quantity', 'category__name', 'month__name', 'total', 'date' ))
     print(month_details)
     return render(request, 'homeb_app/zakup_month_detail.html', {'month_details': month_details })
->>>>>>> css_html
 
 def login_view(request):
     return render(request, 'registration/login.hml', {'form': login})
@@ -137,64 +103,6 @@ def logout_view(request):
 def zakup_nowy(request):
     return render(request, 'homeb_app/main.html', {'form': form})
 '''
-<<<<<<< HEAD
-@login_required
-def zakup_last(request):
-    return render(request, 'homeb_app/base.html', {'last': last})
-'''
-'''
-'''
-'''
-'''
-
-'''
-z = Zakup.objects.filter(month__name='wrzesien').values('user__username')
-user = auth.authenticate(username="name", password="pass")
-15 elementor na 12 miesiecy
-
-    sumy = []
-    kategorie = Kategoria.objects.all()
-    miesiace = Miesiac.objects.all()
-    for miesiac in miesiace:
-        for kategoria in kategorie:
-            k = (Zakup.objects.filter(month__name=miesiac, category=kategoria).values('category__name', 'total').aggregate(Sum('total')))
-            print(k)
-            sumy.append(k)
-
-kategorie = Kategoria.objects.all()
-miesiace = Miesiac.objects.all()
-mie = []
-kat = []
-totals = []
-for miesiac in miesiace:
-    m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
-    totals.append(miesiac)
-    for kategoria in kategorie:
-        k = (Zakup.objects.filter(month__name=miesiac, category=kategoria).values('category__name', 'total').aggregate(Sum('total')))
-        k = k.pop('total__sum')
-        totals.append(kategoria)
-        totals.append(k)
-
-kategorie = Kategoria.objects.all()
-miesiace = Miesiac.objects.all()
-
-month_overall = [] 
-month_category_overall = []
-
-for miesiac in miesiace:
-    m = Zakup.objects.filter(month__name=miesiac).values('total').aggregate(Sum('total'))
-    print('\npodsumowanie miesiaca: \n', miesiac, ':', m, '\n')
-    month_overall.append(m)
-    for kategoria in kategorie:
-        k = (Zakup.objects.filter(month__name=miesiac, category=kategoria).values('category__name', 'total').aggregate(Sum('total')))
-        print(kategoria, ':', k)
-        month_category_overall.append(k)
-
-content[0]
-content[1]
-itd 
-=======
->>>>>>> css_html
 '''
 @login_required
 def zakup_month(request):
