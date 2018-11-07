@@ -1,18 +1,21 @@
 {% extends 'homeb_app/base.html' %}
 
 {% block content %}
+<br>
+<a href="{% url 'zakup_day_detail'  %} ">zakup day detail</a>&nbsp;
+<a href="{% url 'zakup_month_detail' %} ">zakup month detail</a>
+<br>
+    <br><b>zakup detail</b>
     <div class="post">
-        <p><b>nazwa: {{ zakup.name }}</b></p>
+        <p>nazwa: {{ zakup.name }}</p>
         <p>kategoria: {{ zakup.category }}</p>
         <p>miesiac: {{ zakup.month }}</p>
         <p>cena: {{ zakup.price }}</p>
         <p>ilosc: {{ zakup.quantity }}</p>
         <p>suma: {{ zakup.amount }}</p>
         <p>data dodania: {{ zakup.date }}</p>
-        <!-- 
         <p>rok: {{ zakup.year }}</p>
         <p>pk : {{ zakup.pk }} </p>
-        -->
         <form method="POST" class="post-form" action="{% url 'zakup_delete'  zakup.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-default">delete</button>

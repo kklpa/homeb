@@ -10,9 +10,11 @@
     text-decoration: none;
 }
 
+/*
 .content {
     margin-left: 40px;
 }
+*/
 
 h1, h2, h3, h4 {
     font-family: 'Lobster', cursive;
@@ -27,7 +29,7 @@ h1, h2, h3, h4 {
 }
 
 .post-form textarea, .post-form input {
-    width: 50%;
+    width: 200px;
 }
 
 .top-menu, .top-menu:hover, .top-menu:visited {
