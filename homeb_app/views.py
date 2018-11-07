@@ -52,10 +52,10 @@ def zakup_main(request):
         month_number = month_number-1
     #print('totals: ', totals)      
     '''------------------------get current day summary---------------------'''
-    day_sum = Zakup.objects.filter(date=datetime.datetime.now()).values('total').aggregate(Sum('total'))
+    day_sum = Zakup.objects.filter(user__username=request.user, date=datetime.datetime.now()).values('total').aggregate(Sum('total'))
     day_sum = day_sum.pop('total__sum', '0')
     '''------------------------get current month summary-------------------'''
-    month_sum = Zakup.objects.filter(month__id=month_now, year=year_now).values('total').aggregate(Sum('total'))
+    month_sum = Zakup.objects.filter(user__username=request.user, month__id=month_now, year=year_now).values('total').aggregate(Sum('total'))
     month_sum = month_sum.pop('total__sum', '0')
     '''------------------------post form for dodaj zakup-------------------'''
     if request.method == "POST":

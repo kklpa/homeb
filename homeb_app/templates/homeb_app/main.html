@@ -6,11 +6,7 @@
 <div class="main_table"></div>
     <table>
         <tr>
-<<<<<<< HEAD
-            <center><b>last year</b></center>
-=======
             <center><b>last 12 months</b></center>
->>>>>>> css_html
             <td width="500"></td>
             <td width="500" height="30">{{ totals.0 }}</td>
             <td width="500" height="30">{{ totals.15 }}</td>
@@ -134,9 +130,6 @@
     <br>
     <table>
         <tr>
-<<<<<<< HEAD
-            <p><b>last 5</b></p>
-=======
             <!--<p><b>last 5</b></p>-->
                 <td>
                     <b><u>dodaj zakup</u></b>
@@ -146,28 +139,10 @@
                     </form>
                 </td>
                 
->>>>>>> css_html
             <style>td {
                border: 3px solid black; 
             }
             </style>
-<<<<<<< HEAD
-            {% for l in last %}
-            <td>
-                <b>nazwa: <a href="{% url 'zakup_detail' pk=l.pk %}">{{ l.name }}</a></b><br>
-                kategoria: {{ l.category }}<br>
-                <!-- <p>cena: {{ l.price }}</p> -->
-                <!-- <td><p>ilosc: {{ l.quantity }}</p></td> -->
-                suma: {{ l.amount }}<br>
-                miesiac: {{ l.month }}<br>
-                rok: {{ l.year }}<br>
-                <!-- <p>data dodania: {{ l.date }}</p> -->
-            </td>
-            {% endfor %}
-            <td>asdasd</td>
-            <td>asdasd</td>
-            <td>asdasd</td>
-=======
             {% for last in last5 %}
             <td valign="top">
                 <b><u>last 5</u></b><br><br>
@@ -195,7 +170,6 @@
                 <b><u>wydales w tym mc:</u></b><br><br>
                 &nbsp;  {{ month_sum }} zl <a href="{% url 'zakup_month_detail' %}"> zobacz</a>
             </td>
->>>>>>> css_html
         </tr>
     </table>
 </div>
