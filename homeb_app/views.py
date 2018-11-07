@@ -99,10 +99,6 @@ def login_view(request):
 def logout_view(request):
     return redirect(request, '/')
 
-'''@login_required
-def zakup_nowy(request):
-    return render(request, 'homeb_app/main.html', {'form': form})
-'''
 '''
 @login_required
 def zakup_month(request):
